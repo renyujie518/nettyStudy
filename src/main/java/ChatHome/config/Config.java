@@ -29,6 +29,7 @@ public abstract class Config {
     public static Serializer.Algorithm getSerializerAlgorithm() {
         String value = properties.getProperty("serializer.algorithm");
         if(value == null) {
+            //没配置文件 就使用jdk序列化的方式
             return Serializer.Algorithm.Java;
         } else {
             return Serializer.Algorithm.valueOf(value);

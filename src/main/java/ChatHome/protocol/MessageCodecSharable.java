@@ -35,7 +35,7 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         out.writeInt(msg.getSequenceId());
         // 无意义，对齐填充
         out.writeByte(0xff);
-        // 6. 获取内容的字节数组
+        // 6. 序列化  范湖msg的字节数组
         byte[] bytes = Config.getSerializerAlgorithm().serialize(msg);
         // 7. 长度
         out.writeInt(bytes.length);
@@ -60,9 +60,10 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         Serializer.Algorithm algorithm = Serializer.Algorithm.values()[serializerAlgorithm];
         // 确定具体消息类型
         Class<? extends Message> messageClass = Message.getMessageClass(messageType);
+        //执行反序列化
         Message message = algorithm.deserialize(messageClass, bytes);
-//        log.debug("{}, {}, {}, {}, {}, {}", magicNum, version, serializerType, messageType, sequenceId, length);
-//        log.debug("{}", message);
+        //log.debug("{}, {}, {}, {}, {}, {}", magicNum, version, serializerType, messageType, sequenceId, length);
+        //log.debug("{}", message);
         out.add(message);
     }
 
