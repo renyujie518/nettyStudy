@@ -46,6 +46,7 @@ public interface Serializer {
         Json {
             @Override
             public <T> T deserialize(Class<T> clazz, byte[] bytes) {
+                //要用一个自适应器解决Class.class->字符串的问题（序列化和反序列化都需要）
                 Gson gson = new GsonBuilder().registerTypeAdapter(Class.class, new ClassCodec()).create();
                 String json = new String(bytes, StandardCharsets.UTF_8);
                 return gson.fromJson(json, clazz);
@@ -53,6 +54,7 @@ public interface Serializer {
 
             @Override
             public <T> byte[] serialize(T object) {
+                //要用一个自适应器解决Class.class->字符串的问题（序列化和反序列化都需要）
                 Gson gson = new GsonBuilder().registerTypeAdapter(Class.class, new ClassCodec()).create();
                 String json = gson.toJson(object);
                 return json.getBytes(StandardCharsets.UTF_8);

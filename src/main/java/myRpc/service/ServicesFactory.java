@@ -1,4 +1,4 @@
-package ChatHome.server.service;
+package myRpc.service;
 
 
 
@@ -11,6 +11,10 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+
+/**
+ * @description 模拟spring  通过接口名称获取实现类的对象
+ */
 public class ServicesFactory {
 
     static Properties properties;
